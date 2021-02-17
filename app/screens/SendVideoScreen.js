@@ -25,6 +25,7 @@ function SendVideoScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
 
   const handleChooseVideo = async () => {
+    console.log("handle in send");
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Videos,
@@ -35,6 +36,7 @@ function SendVideoScreen() {
       if (result.uri) {
         setVideo(result);
         setImageUri(result.uri);
+        alert("picked successfully");
       }
     } catch (error) {
       console.log("Error reading a video", error);
@@ -54,8 +56,18 @@ function SendVideoScreen() {
     const result = await uploadApi.addVideo(video);
     if (result.ok) {
       setUploadVisible(false);
+      setImageUri(null);
+    } else if (result.ok === undefined) {
+      setUploadVisible(false);
+      setImageUri(null);
     }
     console.log(result);
+  };
+
+  const handleLogOut = () => {
+    // console.log("logout");
+    setUser(null);
+    authStorage.removeToken();
   };
 
   return (
@@ -82,23 +94,41 @@ function SendVideoScreen() {
           name="description"
           placeholder="Description"
         />
-        <ImageInput
+        {/* <ImageInput
           imageUri={imageUri}
           onChangeImage={handleChooseVideo}
-        ></ImageInput>
-        {/* <View style={styles.container}>
-          {!imageUri && <MaterialCommunityIcons name="camera" size={40} />}
-          {imageUri && (
-            <Image source={{ uri: imageUri }} style={styles.image} />
-          )}
-        </View> */}
-        {/* <Button title="Choose Video" onPress={handleChooseVideo} /> */}
+        ></ImageInput> */}
+
+        <Button
+          style={styles.container}
+          title="Choose Video"
+          onPress={handleChooseVideo}
+        />
         <SubmitButton title="Post" />
       </AppForm>
+      {/* <ListItem
+        style={styles.recordVideo}
+        title="Record Video"
+        IconComponent={<Icon name="logout" backgroundColor="yellow" />}
+        onPress={() => navigation.navigate(routes.RECORD_VIDEO)}
+      /> */}
     </Screen>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 30,
+  },
+  recordVideo: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  videoContainer: {
+    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "red",
+  },
+});
 
 export default SendVideoScreen;

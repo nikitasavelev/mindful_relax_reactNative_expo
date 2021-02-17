@@ -15,7 +15,7 @@ const addVideo = async (videoObject) => {
   data.append("meditation", 1);
   data.append("attachment_type", 1);
 
-  return client.post("/meditation/meditation/attachment/create/", data, {
+  return client.post("/meditation/video/create/", data, {
     headers: headers,
   });
 };

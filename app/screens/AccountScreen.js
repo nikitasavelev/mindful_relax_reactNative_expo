@@ -44,11 +44,12 @@ const menuItems = [
     targetScreen: routes.DIALOG,
   },
   {
-    title: "Settings",
+    title: "Meditation videos",
     icon: {
-      name: "settings",
+      name: "video",
       backgroundColor: constants.darkGreyColor,
     },
+    targetScreen: routes.VIDEOS,
   },
 ];
 
@@ -73,11 +74,7 @@ function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.screen}>
-        <ListItem
-          title={userName}
-          subTitle={userEmail()}
-          image={require("../assets/images/user1.jpeg")}
-        />
+        <ListItem title={userName} subTitle={userEmail()} />
       </View>
       <View style={styles.container}>
         <FlatList

@@ -4,7 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import SendVideoScreen from "../screens/SendVideoScreen";
 import ArticlesScreen from "../screens/ArticlesScreen";
+import RecordVideoScreen from "../screens/RecordVideoScreen";
 import NewVideoButton from "./NewVideoButton";
+import RecordVideoButton from "./RecordVideoButton";
 import routes from "./routes";
 import AccountNavigator from "./AccountNavigator";
 import AudioGuideScreen from "../screens/AudioGuideScreen";
@@ -58,6 +60,24 @@ const AppNavigator = () => {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="plus-circle"
+              color={color}
+              size={size}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name={routes.RECORD_VIDEO}
+        component={RecordVideoScreen}
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <RecordVideoButton
+              onPress={() => navigation.navigate(routes.RECORD_VIDEO)}
+            />
+          ),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="controller-record"
               color={color}
               size={size}
             />

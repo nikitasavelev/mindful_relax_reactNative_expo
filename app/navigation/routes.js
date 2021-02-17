@@ -10,4 +10,6 @@ export default Object.freeze({
   GAMIFICATION: "Gamification",
   AUDIO: "Audio Guide",
   ACHIEVEMENTS: "Achievements",
+  RECORD_VIDEO: "Record Video",
+  VIDEOS: "Meditation Videos",
 });
