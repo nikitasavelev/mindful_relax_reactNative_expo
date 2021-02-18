@@ -48,20 +48,20 @@ function SendVideoScreen() {
       console.log("нет видео то");
       return;
     }
-    setUploadVisible(true);
-    setProgress(0);
+    // setUploadVisible(true);
+    // setProgress(0);
     console.log("отправляем видео");
     console.log(video);
 
     const result = await uploadApi.addVideo(video);
     if (result.ok) {
-      setUploadVisible(false);
-      setImageUri(null);
+      // setUploadVisible(false);
+      // setImageUri(null);
     } else if (result.ok === undefined) {
-      setUploadVisible(false);
-      setImageUri(null);
+      // setUploadVisible(false);
+      // setImageUri(null);
     }
-    console.log(result);
+    console.log("responseeeeee", result);
   };
 
   const handleLogOut = () => {

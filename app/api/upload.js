@@ -2,7 +2,8 @@ import client from "./client";
 
 const addVideo = async (videoObject) => {
   const headers = {
-    "Content-Type": "multipart/form-data; ",
+    "Content-Type":
+      "multipart/form-data; boundary=<calculated when request is sent>",
   };
   console.log("videoobject", videoObject);
 

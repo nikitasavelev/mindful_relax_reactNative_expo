@@ -6,73 +6,89 @@ import {
   StyleSheet,
   TouchableHighlight,
   Linking,
+  Button,
 } from "react-native";
 import getVideos from "../api/getVideos";
+// import { Video, AVPlaybackStatus } from "expo-av";
+import VideoPlayer from "expo-video-player";
+import { Video } from "expo-av";
+// import { WebView } from "react-native-webview";
+// import Video from "react-native-video";
+
+// uri:
+// "http://mindfulrelax.ru/api/v1/me/meditation_attachments/1/result/Meditation_For_Inner_Peace_-_Yoga_With_Adriene-heatmap_WbH0bvi-graph.html",
+// }}
 
 export default class VideoOverview extends Component {
-  constructor() {
-    super();
-    this.state = {
-      videos: [],
-    };
+  videoError() {
+    console.log("error");
   }
-  async componentWillMount() {
-    try {
-      const videos = await getVideos.getVideos();
-      if (videos.ok === undefined) {
-        console.log("лучше не надо");
-        return;
+
+  onBuffer() {
+    console.log("buffering");
+  }
+
+  handleLoaded() {
+    console.log("loading");
+  }
+  _onPlaybackStatusUpdate = (status) => {
+    if (status.isLoaded) {
+    } else {
+      console.log(status);
+      if (status.error) {
+        console.log(`FATAL PLAYER ERROR: ${status.error}`);
       }
-      console.log(videos);
-      // const videos = await fetch(ENDPOINT).then((res) => res.json());
-      this.setState({
-        videos: videos,
-      });
-    } catch (e) {
-      console.error("error loading videos", e);
     }
-  }
+  };
 
-  openVideo(id) {
-    Linking.openURL(url).catch((err) =>
-      console.error("An error occurred opening the link", err)
-    );
-  }
+  _onLoad = (status) => {
+    console.log(`ON LOAD : ${JSON.stringify(status)}`);
+  };
 
+  _onError = (error) => {
+    console.log(`ON ERROR : ${error}`);
+  };
+
+  videoUri =
+    "http://mindfulrelax.ru/api/v1/me/meditation_attachments/1/video/mobile-video-upload_RNVBaLL";
   render() {
-    const { videos } = this.state;
-
     return (
-      <View style={styles.container}>
-        <Text style={styles.headline}>Videos</Text>
-        {videos.map(({ id }) => (
-          <TouchableHighlight
-            key={id}
-            underlayColor="rgba(200,200,200,0.6)"
-            onPress={this.openVideo.bind(this, id)}
-          >
-            <Text style={styles.videoTile}>Watch #{id}</Text>
-          </TouchableHighlight>
-        ))}
-      </View>
+      <Video
+        source={{
+          uri: this.videoUri,
+        }}
+        onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
+        resizeMode="cover"
+        useNativeControls
+        style={{ width: 300, height: 300 }}
+        onLoad={this._onLoad}
+        onError={this._onError}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-start",
+  backgroundVideo: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
-  headline: {
-    alignSelf: "center",
-    fontSize: 18,
-    marginTop: 10,
-    marginBottom: 30,
-  },
-  videoTile: {
-    alignSelf: "center",
-    fontSize: 16,
-    marginTop: 15,
-  },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: "flex-start",
+  // },
+  // headline: {
+  //   alignSelf: "center",
+  //   fontSize: 18,
+  //   marginTop: 10,
+  //   marginBottom: 30,
+  // },
+  // videoTile: {
+  //   alignSelf: "center",
+  //   fontSize: 16,
+  //   marginTop: 15,
+  // },
 });

@@ -4,6 +4,8 @@ import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 
+import uploadApi from "../api/upload";
+
 class MyCam extends Component {
   state = {
     video: null,
@@ -14,16 +16,24 @@ class MyCam extends Component {
 
   _saveVideo = async () => {
     const { video } = this.state;
-    const asset = await MediaLibrary.createAssetAsync(video.uri);
-    if (asset) {
-      this.setState({ video: null });
-    }
+    const result = await uploadApi.addVideo(video);
+    console.log(result);
   };
 
+  sendVideoToServer() {
+    const { video } = this.state;
+
+    console.log("video", video);
+  }
+
   _StopRecord = async () => {
+    const { video } = this.state;
+    console.log("stop", video);
     this.setState({ recording: false }, () => {
       this.cam.stopRecording();
     });
+
+    // this.sendVideoToServer();
   };
 
   _StartRecord = async () => {
@@ -36,7 +46,11 @@ class MyCam extends Component {
   };
 
   _switchCamera = async () => {
-    console.log("switch");
+    if (this.state.cameraType === "back") {
+      this.state.cameraType = "front";
+    } else {
+      this.state.cameraType = "back";
+    }
   };
 
   toogleRecord = () => {
@@ -62,6 +76,22 @@ class MyCam extends Component {
           width: "100%",
         }}
       >
+        <TouchableOpacity
+          onPress={this._switchCamera}
+          style={{
+            marginTop: 20,
+            height: 25,
+            width: 25,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+            }}
+          >
+            {cameraType === "front" ? "back" : "front"}
+          </Text>
+        </TouchableOpacity>
         {video && (
           <TouchableOpacity
             onPress={this._saveVideo}

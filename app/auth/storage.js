@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 
 const authKey = "authToken";
 const pollKey = "pollKey";
+const meditationData = "meditationData";
 
 const storeToken = async (authToken) => {
   try {
@@ -52,6 +53,24 @@ const getPoll = async () => {
   }
 };
 
+const storeMeditationId = async (meditation) => {
+  try {
+    await SecureStore.setItemAsync(meditationData, meditation);
+    // console.log(authToken);
+    console.log(meditation);
+  } catch (error) {
+    console.log("Error storing the meditation result", error);
+  }
+};
+
+const getPoll = async () => {
+  try {
+    return await SecureStore.getItemAsync(meditationData);
+  } catch (error) {
+    console.log("Error getting the meditationData token", error);
+  }
+};
+
 export default {
   getToken,
   getUser,
@@ -59,4 +78,6 @@ export default {
   storeToken,
   storePoll,
   getPoll,
+  storeMeditationId,
+  getMeditationId,
 };
