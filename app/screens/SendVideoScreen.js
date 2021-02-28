@@ -9,14 +9,16 @@ import Screen from "../components/Screen";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import axios from "axios";
+
 import uploadApi from "../api/upload";
 import apiClient from "../api/client";
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required().min(1).label("Title"),
-  description: Yup.string().label("Description"),
-  videoPlace: Yup.string().required().min(1).label("VideoPlace"),
-});
+// const validationSchema = Yup.object().shape({
+//   title: Yup.string().required().min(1).label("Title"),
+//   description: Yup.string().label("Description"),
+//   videoPlace: Yup.string().required().min(1).label("VideoPlace"),
+// });
 
 function SendVideoScreen() {
   const [imageUri, setImageUri] = useState();
@@ -28,8 +30,8 @@ function SendVideoScreen() {
     console.log("handle in send");
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        allowsEditing: true,
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
         quality: 1,
       });
       console.log(result);
@@ -44,22 +46,24 @@ function SendVideoScreen() {
   };
 
   const handleSubmit = async () => {
+    console.log(video);
+
     if (!video) {
       console.log("нет видео то");
       return;
     }
-    // setUploadVisible(true);
-    // setProgress(0);
+    setUploadVisible(true);
+    setProgress(0);
     console.log("отправляем видео");
     console.log(video);
 
     const result = await uploadApi.addVideo(video);
     if (result.ok) {
-      // setUploadVisible(false);
-      // setImageUri(null);
+      setUploadVisible(false);
+      setImageUri(null);
     } else if (result.ok === undefined) {
-      // setUploadVisible(false);
-      // setImageUri(null);
+      setUploadVisible(false);
+      setImageUri(null);
     }
     console.log("responseeeeee", result);
   };

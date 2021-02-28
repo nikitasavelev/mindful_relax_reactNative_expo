@@ -7,18 +7,21 @@ const addVideo = async (videoObject) => {
   };
   console.log("videoobject", videoObject);
 
+  let uri = videoObject.uri.split("/");
+  let name = uri[uri.length - 1];
+
+  console.log("name", name);
+
   const data = new FormData();
   data.append("attachment", {
-    name: "mobile-video-upload",
+    name: name,
     type: "video/mp4",
     uri: videoObject.uri,
   });
   data.append("meditation", 1);
   data.append("attachment_type", 1);
 
-  return client.post("/meditation/video/create/", data, {
-    headers: headers,
-  });
+  return client.post("/meditation/video/create/", data);
 };
 
 export default {

@@ -63,7 +63,7 @@ const storeMeditationId = async (meditation) => {
   }
 };
 
-const getPoll = async () => {
+const getMeditationId = async () => {
   try {
     return await SecureStore.getItemAsync(meditationData);
   } catch (error) {

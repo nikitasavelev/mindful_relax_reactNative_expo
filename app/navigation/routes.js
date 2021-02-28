@@ -12,4 +12,5 @@ export default Object.freeze({
   ACHIEVEMENTS: "Achievements",
   RECORD_VIDEO: "Record Video",
   VIDEOS: "Meditation Videos",
+  MEDITATION_INFO: "Meditation Info",
 });

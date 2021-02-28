@@ -8,8 +8,10 @@
 	<true/>
 	<key>EXUpdatesLaunchWaitMs</key>
 	<integer>0</integer>
+	<key>EXUpdatesReleaseChannel</key>
+	<string>default</string>
 	<key>EXUpdatesSDKVersion</key>
-	<string>40.0.0</string>
+	<string>39.0.0</string>
 	<key>EXUpdatesURL</key>
 	<string>https://exp.host/@nikitasavelev11/mindful_relax</string>
 </dict>

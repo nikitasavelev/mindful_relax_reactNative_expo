@@ -51,6 +51,14 @@ const menuItems = [
     },
     targetScreen: routes.VIDEOS,
   },
+  {
+    title: "Meditation information",
+    icon: {
+      name: "information",
+      backgroundColor: constants.darkGreyColor,
+    },
+    targetScreen: routes.MEDITATION_INFO,
+  },
 ];
 
 function AccountScreen({ navigation }) {

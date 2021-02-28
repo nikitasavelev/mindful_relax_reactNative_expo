@@ -6,8 +6,8 @@ import AccountScreen from "../screens/AccountScreen";
 import DialogScreen from "../screens/DialogScreen";
 import GamificationScreen from "../screens/GamificationScreen";
 import AchievementsScreen from "../screens/AchievementsScreen";
-import RecordVideoScreen from "../screens/RecordVideoScreen";
-import VideoOverview from "../screens/Meditation Videos";
+import VideoOverview from "../screens/MeditationVideos";
+import MeditationInfo from "../screens/MeditationInformation";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +18,7 @@ const AccountNavigator = () => (
     <Stack.Screen name={routes.GAMIFICATION} component={GamificationScreen} />
     <Stack.Screen name={routes.ACHIEVEMENTS} component={AchievementsScreen} />
     <Stack.Screen name={routes.VIDEOS} component={VideoOverview} />
+    <Stack.Screen name={routes.MEDITATION_INFO} component={MeditationInfo} />
   </Stack.Navigator>
 );
 
